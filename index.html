@@ -9,18 +9,51 @@
 </head>
 
 <body>
-    <header class="bg-red-600 p-3 text-white shadow-sm flex justify-between">
-        <h1 class="font-bold">Home</h1>
-        <nav id="navBar">
-            <ul id="navItems" class="flex gap-6 pr-3">
-                <li><a href="">Popular</a></li>
-                <li><a href="pokedex.html">♡ PokéDex</a></li>
-            </ul>
-        </nav>
+    <header class="bg-red-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+
+            <!-- Logo -->
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center relative">
+                    <div class="w-4 h-4 bg-red-600 rounded-full border-2 border-white absolute"></div>
+                    <div class="w-2 h-2 bg-white rounded-full border-2 border-red-600 absolute"></div>
+                </div>
+                <span class="text-2xl font-bold tracking-tight">PokeDex</span>
+            </div>
+
+            <!-- Right side buttons -->
+            <div class="flex items-center gap-3">
+                <!-- Popular Button -->
+                <button onclick="window.location.href='index.html';" class=" flex items-center gap-1.5 bg-red-700 hover:bg-red-800 transition-colors px-4 py-1.5
+                    rounded-full text-sm font-medium">
+                    <i class="fa-solid fa-fire"></i>
+                    Popular
+                </button>
+
+                <!-- Pokedex Button -->
+                <button onclick="window.location.href='pokedex.html';"
+                    class="flex items-center gap-1.5 hover:bg-red-700 transition-colors px-4 py-1.5 rounded-full text-sm font-medium">
+                    <i class="fa-solid fa-heart"></i>
+                    Pokedex
+                </button>
+            </div>
+        </div>
     </header>
-    <main>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-6">Popular Pokemon</h1>
+
+        <!-- Search Bar -->
+        <div class="relative max-w-md">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+
+            </div>
+            <input type="text" placeholder="Search by Name, Number or Type..."
+                class="w-full pl-12 pr-4 py-2 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:border-red-500  text-gray-700 placeholder-gray-400 shadow-sm">
+        </div>
+
         <div id="container" class="mx-auto p-4">
-            <h1 class="text-3xl font-bold mb-4">Popular Pokémon</h1>
+
             <div id="pokemon-container" class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <!-- Pok�mon cards will be populated here -->
             </div>
@@ -33,6 +66,8 @@
         </div>
     </footer>
     <script src="main.js"></script>
+    <script src="src/modules/searchBar.js"></script>
+    <script src="src/modules/catch.js"></script>
 </body>
 
 </html>
