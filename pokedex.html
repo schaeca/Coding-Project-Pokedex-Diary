@@ -31,11 +31,11 @@
                     Popular
                 </button>
 
-                <!-- Favorites Button -->
+                <!-- Pokedex Button -->
                 <button
                     class="flex items-center gap-1.5 hover:bg-red-700 transition-colors px-4 py-1.5 rounded-full text-sm font-medium">
                     <i class="fa-solid fa-heart"></i>
-                    Favorites
+                    Pokedex
                 </button>
             </div>
         </div>
@@ -43,18 +43,20 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold text-gray-800 mb-6">Favorite Pokemon</h1>
+        <h1 class="text-4xl font-bold text-gray-800 mb-6">Your Pokedex</h1>
 
         <!-- Search Bar -->
-        <div class="relative max-w-md">
+        <div id="popBar" class="relative max-w-md">
             <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
                 :DD
             </div>
-            <input type="text" placeholder="Search by name or number..."
+            <input type="text" placeholder="Search by Name, Number or Type..."
                 class="w-full pl-12 pr-4 py-2 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:border-red-500  text-gray-700 placeholder-gray-400 shadow-sm">
         </div>
     </main>
 </body>
 <script src="pokedex.js"></script>
+<script src="src/modules/searchBar.js"></script>
+<script src="src/modules/catch.js"></script>
 
 </html>
