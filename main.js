@@ -1,5 +1,6 @@
 const container = document.getElementById("pokemon-container")
 const path = "https://pokeapi.co/api/v2/pokemon"
+let caughtPokemons = JSON.parse(localStorage.getItem("caughtPokemons")) || []
 
 async function loadPokemon(){
     let count = 1
@@ -53,19 +54,15 @@ async function loadPokemon(){
             }else{
                 pokeID = `${pokeID}`
             }
-            
-            console.log(`id: ${pokeID} name: ${name} img: ${image} type: ${type}`);
-            
+                        
             let pokeCard = {
                 id: pokeID,
                 name: name,
                 img: image,
                 type: type,
             }
-            console.log(pokeCard);
             
             pokeCardArray.push(pokeCard)
-            console.log(pokeCardArray)
 
                 let newHTML = `
                 <div class="pokemon-card rounded-md bg-gray-100 flex flex-col justify-center items-center shadow-md">
@@ -84,19 +81,17 @@ async function loadPokemon(){
                 container.innerHTML += newHTML
 
                 let catchButton = document.querySelectorAll(".catchButton")
-                console.log(catchButton);
                 catchButton.forEach(button=>{                   
                     button.addEventListener("click", clickHandler)
                 })
 
-                //let pokecardArr = 
-
+                //noch hinzuzufügen: Button darf erst gedrückt werden, wenn alle Pokemon geladen haben
                 function clickHandler(e){
                     e.preventDefault()
-                    alert("button clicked")
-                    let dataToStore = e.target.parentNode.parentNode.parentNode.textContent
-                    console.log(JSON.stringify(dataToStore))
-                    
+                    let idToStore = e.target.id-1;
+                    let itemToStore = pokeCardArray[idToStore]
+                    caughtPokemons.push(itemToStore)
+                    localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
                     //localStorage.setItem("pokemon", e.target.value)
                 }
 
