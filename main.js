@@ -3,6 +3,7 @@ const path = "https://pokeapi.co/api/v2/pokemon"
 
 async function loadPokemon(){
     let count = 1
+    let pokeCardArray =[]
     while (count<151){
         try {
             const res = await fetch(`${path}/${count}`)
@@ -10,6 +11,7 @@ async function loadPokemon(){
             const type = data.types[0].type.name
             const name = data.name
             const image = data.sprites.other.home.front_default
+            
             let typeColor = "rounded-3xl py-1 px-3 text-xs text-white uppercase"
             if (type =="grass"){
                 typeColor += " bg-green-400"            
@@ -51,13 +53,26 @@ async function loadPokemon(){
             }else{
                 pokeID = `${pokeID}`
             }
-        
+            
+            console.log(`id: ${pokeID} name: ${name} img: ${image} type: ${type}`);
+            
+            let pokeCard = {
+                id: pokeID,
+                name: name,
+                img: image,
+                type: type,
+            }
+            console.log(pokeCard);
+            
+            pokeCardArray.push(pokeCard)
+            console.log(pokeCardArray)
+
                 let newHTML = `
                 <div class="pokemon-card rounded-md bg-gray-100 flex flex-col justify-center items-center shadow-md">
                     <div class="flex flex-col justify-center items-center pt-2">
                         <div class="flex justify-between items-center w-full px-2">
                             <p class = "poke-id bg-black text-white p-1 rounded-2xl text-xs">#${pokeID}</p>
-                            <button class="text-2xl bg-white px-2 rounded-full">♡</button>
+                            <button id = "${count}" class="catchButton text-2xl bg-white px-2 rounded-full">♡</button>
                         </div>
                         <img class = "w-full h-full object-contain pb-8" src=${image}>
                     </div>
@@ -67,9 +82,24 @@ async function loadPokemon(){
                     </div>                                
                 `
                 container.innerHTML += newHTML
-                console.log(data.types[0].type.name);
-                
-               
+
+                let catchButton = document.querySelectorAll(".catchButton")
+                console.log(catchButton);
+                catchButton.forEach(button=>{                   
+                    button.addEventListener("click", clickHandler)
+                })
+
+                //let pokecardArr = 
+
+                function clickHandler(e){
+                    e.preventDefault()
+                    alert("button clicked")
+                    let dataToStore = e.target.parentNode.parentNode.parentNode.textContent
+                    console.log(JSON.stringify(dataToStore))
+                    
+                    //localStorage.setItem("pokemon", e.target.value)
+                }
+
                 count++
             
         } catch(err) {console.error(err)}
@@ -77,3 +107,5 @@ async function loadPokemon(){
 }
 
 loadPokemon()
+
+
