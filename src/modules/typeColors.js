@@ -1,4 +1,4 @@
-{
+const typeColors = {
     "grass": "bg-green-400",
     "fire": "bg-red-500",
     "water": "bg-blue-400",
@@ -14,4 +14,5 @@
     "ice": "bg-blue-200",
     "dragon": "bg-indigo-500",
     "normal": "bg-gray-300"
-}
+};
+

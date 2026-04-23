@@ -1,3 +1,4 @@
+
 const typeColors = {
     grass: "bg-green-400",
     fire: "bg-red-500",
