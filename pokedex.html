@@ -53,10 +53,18 @@
             <input type="text" placeholder="Search by Name, Number or Type..."
                 class="w-full pl-12 pr-4 py-2 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:border-red-500  text-gray-700 placeholder-gray-400 shadow-sm">
         </div>
+
+        <div id="container" class="mx-auto p-4">
+
+            <div id="pokemon-container" class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <!-- Pok�mon cards will be populated here -->
+            </div>
+        </div>
     </main>
 </body>
-<script src="pokedex.js"></script>
-<script src="src/modules/searchBar.js"></script>
-<script src="src/modules/catch.js"></script>
+<script type="module" src="pokedex.js"></script>
+<script type="module" src="src/modules/searchBar.js"></script>
+<script type="module" src="src/modules/showPokedex.js"></script>
+<script type="module" src="src/modules/popupCard.js"></script>
 
 </html>
