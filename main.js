@@ -1,10 +1,13 @@
 const container = document.getElementById("pokemon-container")
+container.classList.add("border")
 const path = "https://pokeapi.co/api/v2/pokemon"
 let caughtPokemons = JSON.parse(localStorage.getItem("caughtPokemons")) || []
+let pokeCardArray =[]
+
+console.log(caughtPokemons);
 
 async function loadPokemon(){
     let count = 1
-    let pokeCardArray =[]
     while (count<151){
         try {
             const res = await fetch(`${path}/${count}`)
@@ -61,6 +64,10 @@ async function loadPokemon(){
                 img: image,
                 type: type,
             }
+
+            const wasCaught = caughtPokemons.some(i => i.id === pokeID)
+            let heart
+            if (!wasCaught){heart="♡"}else{heart="♥"}
             
             pokeCardArray.push(pokeCard)
 
@@ -69,7 +76,7 @@ async function loadPokemon(){
                     <div class="flex flex-col justify-center items-center pt-2">
                         <div class="flex justify-between items-center w-full px-2">
                             <p class = "poke-id bg-black text-white p-1 rounded-2xl text-xs">#${pokeID}</p>
-                            <button id = "${count}" class="catchButton text-2xl bg-white px-2 rounded-full">♡</button>
+                            <button id = "${count}" class="catchButton text-2xl bg-white text-red-500 px-2 rounded-full">${heart}</button>
                         </div>
                         <img class = "w-full h-full object-contain pb-8" src=${image}>
                     </div>
@@ -78,23 +85,8 @@ async function loadPokemon(){
                         <p class="poke-type ${typeColor}">${type}</p>
                     </div>                                
                 `
-                container.innerHTML += newHTML
-
-                let catchButton = document.querySelectorAll(".catchButton")
-                catchButton.forEach(button=>{                   
-                    button.addEventListener("click", clickHandler)
-                })
-
-                //noch hinzuzufügen: Button darf erst gedrückt werden, wenn alle Pokemon geladen haben
-                function clickHandler(e){
-                    e.preventDefault()
-                    let idToStore = e.target.id-1;
-                    let itemToStore = pokeCardArray[idToStore]
-                    caughtPokemons.push(itemToStore)
-                    localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
-                    //localStorage.setItem("pokemon", e.target.value)
-                }
-
+                container.innerHTML += newHTML                  
+                
                 count++
             
         } catch(err) {console.error(err)}
@@ -102,5 +94,45 @@ async function loadPokemon(){
 }
 
 loadPokemon()
+container.addEventListener("click", clickHandler)
 
+function clickHandler(e){
+    if(e.target.classList.contains("catchButton")){
+        console.log("got clicked")
+        pokemonHandler(e)
+    }
+}
 
+function pokemonHandler(e){
+    e.preventDefault()
+    const buttonID = Number(e.target.id)
+    console.log(`buttonID: ${buttonID}`);
+    const index = buttonID -1
+    const itemToStore = pokeCardArray[index]
+    console.log(itemToStore);
+    
+    if (!caughtPokemons.some(i => Number(i.id) == buttonID)){
+        caughtPokemons.push(itemToStore)
+        console.log("saved");
+        console.log(caughtPokemons);
+        localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
+        markButtonSaved(buttonID)
+
+    }else{
+        caughtPokemons = caughtPokemons.filter(i => Number(i.id) !== buttonID)
+        console.log("removed");
+        console.log(caughtPokemons);
+        localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
+        markButtonFree(buttonID)
+    }
+}
+
+function markButtonSaved(buttonID){
+    let pokeButton = document.getElementById(buttonID)
+    pokeButton.textContent="♥"
+}
+
+function markButtonFree(buttonID){
+    let pokeButton = document.getElementById(buttonID)
+    pokeButton.textContent="♡"
+}
