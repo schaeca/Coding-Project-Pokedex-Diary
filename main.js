@@ -1,5 +1,4 @@
 const container = document.getElementById("pokemon-container")
-container.classList.add("border")
 const path = "https://pokeapi.co/api/v2/pokemon"
 let caughtPokemons = JSON.parse(localStorage.getItem("caughtPokemons")) || []
 let pokeCardArray = []
